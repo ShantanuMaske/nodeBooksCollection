@@ -2,19 +2,25 @@ import Customer from '../Models/custmodel'
 
 export const createCustomer = async function (req: any, res:any) {
     try {
-        const {name, address, age, password } = req.body
+        const {firstName, orderId, lastName, email, address } = req.body
         const createCustomer = await Customer.create({
-            name: name,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            orderId: orderId,
             address:{
             phone: address.phone,
-            street: address.street
-        },
-        age: age,
-        password: password
+            lineOne: address.lineOne,
+            lineTwo: address.lineTwo,
+            city: address.city,
+            state: address.state,
+            country: address.country
+        }
         })
         return createCustomer;
     } catch (e) {
         // Log Errors
+        console.log(e)
         throw Error('Error while Paginating Users')
     }
 }

@@ -33,15 +33,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const CustomerRouter = (0, express_1.Router)();
-const customerService = __importStar(require("../Service/customerService"));
-// import auth from '../Auth/auth'
-CustomerRouter.post('/create-customer', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const BooksRouter = (0, express_1.Router)();
+const bookService = __importStar(require("../Service/bookService"));
+BooksRouter.get('/getBook-detail', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const createEntry = yield customerService.createCustomer(req, res);
-        if (createEntry) {
-            res.status(200).json(createEntry);
-        }
+        const getBookDetails = yield bookService.getBookDetails(req, res);
+        res.status(200).json({
+            data: getBookDetails
+        });
     }
     catch (e) {
         res.status(500).json({
@@ -50,12 +49,12 @@ CustomerRouter.post('/create-customer', (req, res) => __awaiter(void 0, void 0, 
         });
     }
 }));
-CustomerRouter.get('/get-all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+BooksRouter.post('/addBook-detail', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const getEntry = yield customerService.getCustomer(req, res);
-        if (getEntry) {
-            res.status(200).json(getEntry);
-        }
+        const addBookDetails = yield bookService.addBookDetails(req, res);
+        res.status(200).json({
+            data: addBookDetails
+        });
     }
     catch (e) {
         res.status(500).json({
@@ -64,46 +63,4 @@ CustomerRouter.get('/get-all', (req, res) => __awaiter(void 0, void 0, void 0, f
         });
     }
 }));
-CustomerRouter.post('/get-one/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const getEntry = yield customerService.getOneCustomer(req, res);
-        if (getEntry) {
-            res.status(200).json(getEntry);
-        }
-    }
-    catch (e) {
-        res.status(500).json({
-            msg: "Internal Server Error",
-            error: e
-        });
-    }
-}));
-CustomerRouter.patch('/update-customer/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const updateEntry = yield customerService.updateCustomer(req, res);
-        if (updateEntry) {
-            res.status(200).json(updateEntry);
-        }
-    }
-    catch (e) {
-        res.status(500).json({
-            msg: "Internal Server Error",
-            error: e
-        });
-    }
-}));
-CustomerRouter.patch('/delete-customer/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const deleteEntry = yield customerService.deleteCustomer(req, res);
-        if (deleteEntry) {
-            res.status(200).json(deleteEntry);
-        }
-    }
-    catch (e) {
-        res.status(500).json({
-            msg: "Internal Server Error",
-            error: e
-        });
-    }
-}));
-exports.default = CustomerRouter;
+exports.default = BooksRouter;

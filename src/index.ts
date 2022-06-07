@@ -3,7 +3,11 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { connect } from '../Mongo/mongoose'
-import CustomerRouter from "../Router/customer"
+import CustomerRouter from "../Controller/customer"
+import AdminRouter from "../Controller/admin"
+import BooksRouter from "../Controller/books"
+import FeatureBannerRouter from '../Controller/featureBanner';
+import BooksTypeRouter from '../Controller/bookType';
 
 dotenv.config();
 
@@ -23,11 +27,14 @@ app.use(function(req, res, next) {
   });
 
 app.use('/customer',CustomerRouter)
+app.use('/admin', AdminRouter)
+app.use('/books', BooksRouter)
+app.use('/banner', FeatureBannerRouter)
+app.use('/booksType', BooksTypeRouter)
 
 app.get('/', (req: Request, res: Response) => {
   res.send('<h1>Hello from the TypeScript world!</h1>');
 });
 
 connect();
-
 app.listen(PORT, () => console.log(`Running on ${PORT} Environment: ${Environment}`));

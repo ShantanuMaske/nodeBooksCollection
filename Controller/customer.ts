@@ -1,17 +1,16 @@
-import express from 'express';
-
 import { Router } from 'express';
 const CustomerRouter = Router();
 import * as customerService from "../Service/customerService"
-// import auth from '../Auth/auth'
 
 CustomerRouter.post('/create-customer', async (req, res)  =>   {
     try{
+        console.log(req.body)
         const createEntry:any = await customerService.createCustomer(req, res)
         if(createEntry){
         res.status(200).json(createEntry);
     }
     }catch(e){
+        console.log(e)
         res.status(500).json({
             msg: "Internal Server Error",
             error: e

@@ -8,7 +8,11 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const helmet_1 = __importDefault(require("helmet"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = require("../Mongo/mongoose");
-const customer_1 = __importDefault(require("../Router/customer"));
+const customer_1 = __importDefault(require("../Controller/customer"));
+const admin_1 = __importDefault(require("../Controller/admin"));
+const books_1 = __importDefault(require("../Controller/books"));
+const featureBanner_1 = __importDefault(require("../Controller/featureBanner"));
+const bookType_1 = __importDefault(require("../Controller/bookType"));
 dotenv_1.default.config();
 const PORT = process.env.PORT || 3000;
 const Environment = process.env.NODE_ENV || 'DEV';
@@ -23,6 +27,10 @@ app.use(function (req, res, next) {
     next();
 });
 app.use('/customer', customer_1.default);
+app.use('/admin', admin_1.default);
+app.use('/books', books_1.default);
+app.use('/banner', featureBanner_1.default);
+app.use('/booksType', bookType_1.default);
 app.get('/', (req, res) => {
     res.send('<h1>Hello from the TypeScript world!</h1>');
 });
